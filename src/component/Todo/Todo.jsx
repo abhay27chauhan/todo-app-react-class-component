@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import Tasklist from '../Tasklist/Tasklist';
 
 export default class Todo extends Component {
     state = {
-        taskList: ["Task-1", "Task-2", "Task-3", "Task4"],
+        taskList: [],
         currTask: ""
     }
 
@@ -16,13 +17,13 @@ export default class Todo extends Component {
 
     addTask = () => {
         this.setState({
-            taskList: [...this.state.taskList, this.state.currTask],
+            taskList: [...this.state.taskList, {task: this.state.currTask, id: this.state.taskList.length}],
             currTask: ""
         })
     }
 
-    deleteTask(cTask){
-        let filteredTask = this.state.taskList.filter(task => task !== cTask);
+    deleteTask = (id) => {
+        let filteredTask = this.state.taskList.filter(taskObj => taskObj.id !== id);
 
         this.setState({
             taskList: filteredTask
@@ -36,18 +37,7 @@ export default class Todo extends Component {
                     <input type="text" value={this.state.currTask} onChange={this.handleCurrTask} />
                     <button onClick={this.addTask}>submit</button>
                 </div>
-                <div className="task-list">
-                    <ul>
-                        {
-                            this.state.taskList.map(task => (
-                                <li className="task">
-                                    <p>{task}</p>
-                                    <button onClick={() => this.deleteTask(task)} >delete</button>
-                                </li>
-                            ))
-                        }
-                    </ul>
-                </div>
+                <Tasklist taskList={this.state.taskList} deleteTask={this.deleteTask} />
             </div>
         )
     }
