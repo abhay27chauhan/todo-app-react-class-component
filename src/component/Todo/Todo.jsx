@@ -39,6 +39,9 @@ export default class Todo extends Component {
 //   4. whenever you will change the state i (react) will call the 
 //         render function again 
 
+// parent only have those states which are comman between its children
+// rest states are defined in the children component itself, to avoid prop drilling
+
 
 // HTML forms
 // In HTML, form elements such as <input>, <textarea>, and <select> typically maintain their own state and update it based on user input. In React, mutable state is typically kept in the state property of components, and only updated with setState().
