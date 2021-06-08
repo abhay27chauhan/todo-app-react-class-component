@@ -1,24 +1,15 @@
 import React, { Component } from 'react'
+import AddTask from '../AddTask/AddTask';
 import Tasklist from '../Tasklist/Tasklist';
 
 export default class Todo extends Component {
     state = {
         taskList: [],
-        currTask: ""
     }
 
-    handleCurrTask = (e) => {
-        let value = e.target.value;
-
+    addTask = (currTask) => {
         this.setState({
-            currTask: value
-        })
-    }
-
-    addTask = () => {
-        this.setState({
-            taskList: [...this.state.taskList, {task: this.state.currTask, id: this.state.taskList.length}],
-            currTask: ""
+            taskList: [...this.state.taskList, {task: currTask, id: this.state.taskList.length}]
         })
     }
 
@@ -33,10 +24,7 @@ export default class Todo extends Component {
     render() {
         return (
             <div>
-                <div className="input-container">
-                    <input type="text" value={this.state.currTask} onChange={this.handleCurrTask} />
-                    <button onClick={this.addTask}>submit</button>
-                </div>
+                <AddTask addTask={this.addTask}/>
                 <Tasklist taskList={this.state.taskList} deleteTask={this.deleteTask} />
             </div>
         )
